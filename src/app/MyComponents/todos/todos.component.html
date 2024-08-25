@@ -1,12 +1,30 @@
 <div class="container">
+    <!-- Page title centered and with a margin at the bottom -->
     <h1 class="text-center mb-3">Todo List by CodeWithHarry</h1>
+
+    <!-- Custom component for adding a new todo -->
+    <!-- (todoAdd)="addTodo($event)" is an event binding that calls the addTodo method when a todo is added -->
     <app-add-todo (todoAdd)="addTodo($event)"></app-add-todo>
+
+    <!-- Subtitle for the todo list -->
     <h4>Your Todos</h4>
+
+    <!-- Condition to check if there are no todos -->
+    <!-- *ngIf="this.todos.length===0" is a structural directive that shows "No Todos to display" if the todos array is empty -->
     <div *ngIf="this.todos.length===0; else elseBlock">No Todos to display</div>
+
+    <!-- ng-template to define an alternative block if todos are present -->
     <ng-template #elseBlock>
+        <!-- *ngFor is a structural directive that repeats the app-todo-item component for each todo in the todos array -->
+        <!-- index as i gives the index of the current item in the array -->
         <div *ngFor="let todo of todos; index as i">
+            <!-- Custom component for each todo item -->
+            <!-- [todo]="todo" is property binding, passing the current todo item to the app-todo-item component -->
+            <!-- [i]="i" is property binding, passing the index of the current item -->
+            <!-- (todoDelete)="deleteTodo($event)" is an event binding that calls the deleteTodo method when the todoDelete event is emitted -->
+            <!-- (todoCheckbox)="toggleTodo($event)" is an event binding that calls the toggleTodo method when the todoCheckbox event is emitted -->
             <app-todo-item [todo]="todo" [i]="i" (todoDelete)="deleteTodo($event)" (todoCheckbox)="toggleTodo($event)">
             </app-todo-item>
         </div>
     </ng-template>
-</div> 
+</div>

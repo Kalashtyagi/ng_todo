@@ -1,4 +1,3 @@
-import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';  
 import { Todo } from "../../Todo";
 
@@ -8,39 +7,46 @@ import { Todo } from "../../Todo";
   styleUrls: ['./todos.component.css']
 })
 export class TodosComponent implements OnInit {
-  localItem: string;
-  todos:Todo[];
+  localItem: string; // Holds the raw string of todos from local storage
+  todos: Todo[]; // Array of Todo items
+
   constructor() { 
+    // Retrieve todos from local storage
     this.localItem = localStorage.getItem("todos");
+    
+    // If no todos are found, initialize an empty array
     if(this.localItem == null){
-    this.todos = [];
+      this.todos = [];
     }
+    // If todos are found, parse them from JSON to the array
     else{ 
       this.todos = JSON.parse(this.localItem); 
     }
-
-   }
-
-  ngOnInit(): void {
   }
 
-  deleteTodo(todo:Todo){
+  ngOnInit(): void {}
+
+  // Method to delete a todo item
+  deleteTodo(todo: Todo) {
     console.log(todo);
-    const index = this.todos.indexOf(todo);
-    this.todos.splice(index, 1);
-    localStorage.setItem("todos", JSON.stringify(this.todos));
+    const index = this.todos.indexOf(todo); // Find the index of the todo
+    this.todos.splice(index, 1); // Remove the todo from the array
+    localStorage.setItem("todos", JSON.stringify(this.todos)); // Update local storage
   }
-  addTodo(todo:Todo){
+
+  // Method to add a new todo item
+  addTodo(todo: Todo) {
     console.log(todo); 
-    this.todos.push(todo); 
-    localStorage.setItem("todos", JSON.stringify(this.todos));
+    this.todos.push(todo); // Add the new todo to the array
+    localStorage.setItem("todos", JSON.stringify(this.todos)); // Update local storage
   }
-  toggleTodo(todo:Todo){ 
+
+  // Method to toggle the active status of a todo item
+  toggleTodo(todo: Todo) { 
     const index = this.todos.indexOf(todo);
     console.log(index)
-    this.todos[index].active = !this.todos[index].active;
-    localStorage.setItem("todos", JSON.stringify(this.todos));
-    
+    this.todos[index].active = !this.todos[index].active; // Toggle the active status
+    localStorage.setItem("todos", JSON.stringify(this.todos)); // Update local storage
     console.log(todo)
   }
 }

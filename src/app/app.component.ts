@@ -11,6 +11,6 @@ export class AppComponent {
   //   setTimeout(() => {
   //     this.title = "Changed title";
   // }, 2000);
-  
+
   }
 }
